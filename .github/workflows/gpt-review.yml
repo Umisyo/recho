@@ -7,6 +7,23 @@ on:
 jobs:
   gpt-auto-review:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: |
+      ((github.event.action == 'labeled') && 
+        (github.event.label.name == 'auto-review')) ||
+      ((github.event.action == 'synchronize') &&
+        contains(github.event.pull_request.labels.*.name, 'auto-review'))
+
     steps:
-      - name: GPT AUTO REVIEW
-        uses: Umisyo/gpt-auto-review@0.1.0
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Run gpt-auto-review
+        uses: username/gpt-auto-review-action@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
