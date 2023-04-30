@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run gpt-auto-review
-        uses: Umisyo/gpt-auto-review-action@v1
+        uses: Umisyo/gpt-auto-review@0.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPT_API_KEY: ${{ secrets.GPT_API_KEY }}
