@@ -1,0 +1,12 @@
+name: My Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled]
+
+jobs:
+  gpt-auto-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GPT AUTO REVIEW
+        uses: Umisyo/gpt-auto-review@0.1.0
